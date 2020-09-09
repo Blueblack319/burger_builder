@@ -14,6 +14,7 @@ const Modal = (props) => {
         style={{
           tranform: props.ordered ? "translateY(0)" : "translateY(-100vh)",
           opacity: props.ordered ? "1" : "0",
+          zIndex: props.ordered ? "500" : "-1",
         }}
       >
         {props.children}
