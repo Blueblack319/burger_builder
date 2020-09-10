@@ -12,7 +12,7 @@ const Modal = (props) => {
       <div
         className={classes.Modal}
         style={{
-          tranform: props.ordered ? "translateY(0)" : "translateY(-100vh)",
+          transform: props.ordered ? "translateY(0)" : "translateY(-100vh)",
           opacity: props.ordered ? "1" : "0",
           zIndex: props.ordered ? "500" : "-1",
         }}
