@@ -94,16 +94,16 @@ class BurgerBuilder extends Component {
           cancleOrder={this.handleCancleOrder}
         >
           <OrderSummary
-            orderCancled={this.handleCancleOrder}
-            orderContinued={this.handleContinueOrder}
+            cancleOrder={this.handleCancleOrder}
+            continueOrder={this.handleContinueOrder}
             ingredients={this.state.ingredients}
             price={this.state.totalPrice.toFixed(2)}
           />
         </Modal>
         <Burger ingredients={this.state.ingredients} />
         <BuildControls
-          ingredientAdded={this.handleAdded}
-          ingredientRemoved={this.handleRemoved}
+          addIngredient={this.handleAdded}
+          removeIngredient={this.handleRemoved}
           disabled={disableInfo}
           purchasable={this.state.purchasable}
           price={this.state.totalPrice}

@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import BuildControl from "./BuildControl/BuildControl";
 
 import classes from "./BuildControls.module.css";
@@ -21,8 +23,8 @@ const BuildControls = (props) => {
           <BuildControl
             key={ctrl.label}
             label={ctrl.label}
-            added={props.ingredientAdded.bind(this, ctrl.type)}
-            removed={props.ingredientRemoved.bind(this, ctrl.type)}
+            added={props.addIngredient.bind(this, ctrl.type)}
+            removed={props.removeIngredient.bind(this, ctrl.type)}
             disabled={props.disabled[ctrl.type]}
           />
         );
@@ -36,6 +38,15 @@ const BuildControls = (props) => {
       </button>
     </div>
   );
+};
+
+BuildControls.propTypes = {
+  addIngredient: PropTypes.func,
+  removeIngredient: PropTypes.func,
+  disabled: PropTypes.object,
+  purchasable: PropTypes.bool,
+  price: PropTypes.number,
+  ordered: PropTypes.func,
 };
 
 export default BuildControls;

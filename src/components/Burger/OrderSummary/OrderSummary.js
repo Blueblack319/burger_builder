@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 import Aux from "../../../hoc/Aux/Aux";
 import Button from "../../UI/Button/Button";
@@ -27,15 +28,22 @@ class OrderSummary extends Component {
         <p>
           <strong>Total Price: {this.props.price}$</strong>
         </p>
-        <Button btnType="Danger" clicked={this.props.orderCancled}>
+        <Button btnType="Danger" clicked={this.props.cancleOrder}>
           Cancle
         </Button>
-        <Button btnType="Success" clicked={this.props.orderContinued}>
+        <Button btnType="Success" clicked={this.props.continueOrder}>
           Continue
         </Button>
       </Aux>
     );
   }
 }
+
+OrderSummary.propTypes = {
+  ingredients: PropTypes.object,
+  price: PropTypes.number,
+  cancleOrder: PropTypes.func,
+  continueOrder: PropTypes.func,
+};
 
 export default OrderSummary;
