@@ -8,10 +8,10 @@ const Toolbar = (props) => (
   <header className={classes.Toolbar}>
     <div>MENU</div>
     {/* <Logo height="80%" /> */}
-    <div className={classes.Logo}>
+    <div className={[classes.Logo, classes.DesktopOnly].join(" ")}>
       <Logo />
     </div>
-    <nav>
+    <nav className={classes.DesktopOnly}>
       <NavigationItems />
     </nav>
   </header>
