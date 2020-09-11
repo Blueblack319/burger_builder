@@ -8,7 +8,10 @@ import classes from "./Modal.module.css";
 
 class Modal extends Component {
   shouldComponentUpdate = (nextProps, nextState) => {
-    return nextProps.ordered !== this.props.ordered;
+    return (
+      nextProps.ordered !== this.props.ordered ||
+      nextProps.children !== this.props.children
+    );
   };
 
   componentDidUpdate = () => {
