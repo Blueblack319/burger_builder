@@ -119,7 +119,7 @@ class BurgerBuilder extends Component {
         cancleOrder={this.handleCancleOrder}
         continueOrder={this.handleContinueOrder}
         ingredients={this.state.ingredients}
-        price={parseInt(this.state.totalPrice.toFixed(2))}
+        price={parseFloat(this.state.totalPrice.toFixed(2))}
       />
     );
     if (this.state.loading) {
