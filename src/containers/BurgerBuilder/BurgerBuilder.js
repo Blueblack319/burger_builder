@@ -9,6 +9,8 @@ import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 
+import classes from "./BurgerBuilder.module.css";
+
 const INGREDIENT_PRICE = {
   salad: 0.5,
   cheese: 0.4,
@@ -156,7 +158,7 @@ class BurgerBuilder extends Component {
     }
 
     return (
-      <Aux>
+      <div className={classes.Content}>
         <Modal
           ordered={this.state.ordered}
           cancleOrder={this.handleCancleOrder}
@@ -164,7 +166,7 @@ class BurgerBuilder extends Component {
           {orderSummary}
         </Modal>
         {burger}
-      </Aux>
+      </div>
     );
   }
 }

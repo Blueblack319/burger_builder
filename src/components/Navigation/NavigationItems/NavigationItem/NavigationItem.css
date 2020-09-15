@@ -21,7 +21,6 @@
 
 @media (min-width: 500px) {
   .NavitagionItem {
-    margin: 0px;
     display: flex;
     align-items: center;
     height: 100%;
