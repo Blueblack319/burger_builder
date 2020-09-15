@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 import Aux from "../../../hoc/Aux/Aux";
 import Button from "../../UI/Button/Button";
+import { Link } from "react-router-dom";
 
 class OrderSummary extends Component {
   // For Check
@@ -31,9 +32,11 @@ class OrderSummary extends Component {
         <Button btnType="Danger" clicked={this.props.cancleOrder}>
           Cancle
         </Button>
-        <Button btnType="Success" clicked={this.props.continueOrder}>
-          Continue
-        </Button>
+        <Link to="/checkout">
+          <Button btnType="Success" clicked={this.props.continueOrder}>
+            Continue
+          </Button>
+        </Link>
       </Aux>
     );
   }
