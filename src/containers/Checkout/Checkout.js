@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import CheckoutSummary from "../../components/Order/CheckoutSummary/CheckoutSummary";
+import ContactData from "./ContactData/ContactData";
 
 class Checkout extends Component {
   state = {
@@ -31,7 +32,6 @@ class Checkout extends Component {
   };
 
   render() {
-    console.log(this.props);
     return (
       <div>
         <CheckoutSummary
@@ -39,7 +39,7 @@ class Checkout extends Component {
           checkoutCancled={this.handleCheckoutCancled}
           checkoutContinued={this.handleCheckoutContinued}
         />
-        ;
+        <ContactData />
       </div>
     );
   }
