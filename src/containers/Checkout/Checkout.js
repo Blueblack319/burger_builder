@@ -11,6 +11,11 @@ class Checkout extends Component {
     },
   };
 
+  componentDidMount() {
+    const ingredients = { ...this.props.location.state.ingredients };
+    this.setState({ ingredients });
+  }
+
   handleCheckoutCancled = () => {
     this.props.history.goBack();
   };
