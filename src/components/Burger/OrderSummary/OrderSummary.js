@@ -14,7 +14,9 @@ class OrderSummary extends Component {
       (igKey) => {
         return (
           <li key={igKey}>
-            <span>{igKey}</span>: {this.props.ingredients[igKey]}
+            <span>
+              {igKey}: {this.props.ingredients[igKey]}
+            </span>
           </li>
         );
       }
