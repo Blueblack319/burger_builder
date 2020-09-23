@@ -5,9 +5,20 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from "react-router-dom";
 
+import { createStore, combineReducers } from "redux";
+import { Provider } from "react-redux";
+import ingredientsReducer from "./store/reducers/ingredientsReducer";
+import priceReducer from "./store/reducers/priceReducer";
+
+const rootReducer = combineReducers({ ingredientsReducer, priceReducer });
+
+const store = createStore(rootReducer);
+
 const app = (
   <BrowserRouter>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </BrowserRouter>
 );
 
