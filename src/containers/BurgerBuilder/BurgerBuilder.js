@@ -15,20 +15,11 @@ import * as actionCreators from "../../store/actions/index";
 class BurgerBuilder extends Component {
   state = {
     ordered: false,
-    loading: false,
-    error: false,
   };
 
-  // componentDidMount() {
-  //   axios({
-  //     url: "https://react-burger-builder-bc2e4.firebaseio.com/ingredients.json",
-  //     method: "get",
-  //   })
-  //     .then((res) => {
-  //       this.setState({ ingredients: res.data });
-  //     })
-  //     .catch((error) => this.setState({ error: true }));
-  // }
+  componentDidMount() {
+    this.props.onInitIngredients();
+  }
 
   handleUpdatePurchaseState = (ingredients) => {
     const sum = Object.keys(ingredients)
@@ -60,7 +51,7 @@ class BurgerBuilder extends Component {
     }
 
     let orderSummary = null;
-    let burger = this.state.error ? (
+    let burger = this.props.error ? (
       <p>Ingredients can not be loaded!</p>
     ) : (
       <Spinner />
@@ -89,9 +80,6 @@ class BurgerBuilder extends Component {
         />
       );
     }
-    if (this.state.loading) {
-      orderSummary = <Spinner />;
-    }
 
     return (
       <Aux>
@@ -111,6 +99,7 @@ const mapStateToProps = (state) => {
   return {
     ings: state.ingredients,
     price: state.totalPrice,
+    error: state.error,
   };
 };
 
@@ -120,6 +109,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(actionCreators.addIngredient(ingName)),
     onIngredientRemoved: (ingName) =>
       dispatch(actionCreators.removeIngredient(ingName)),
+    onInitIngredients: () => dispatch(actionCreators.initIngredients()),
   };
 };
 
