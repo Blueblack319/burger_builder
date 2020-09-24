@@ -1,6 +1,6 @@
-const actionType = {
+const actionTypes = {
   ADD_INGREDIENT: "ADD_INGREDIENT",
   REMOVE_INGREDIENT: "REMOVE_INGREDIENT",
 };
 
-export default actionType;
+export default actionTypes;
