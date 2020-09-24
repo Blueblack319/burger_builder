@@ -11,95 +11,16 @@ import { connect } from "react-redux";
 
 class ContactData extends Component {
   state = {
-    orderForm: {
-      name: {
-        elementType: "input",
-        elementConfig: {
-          type: "text",
-          placeholder: "Your name",
-        },
-        validation: {
-          required: true,
-        },
-        valid: false,
-        touched: false,
-        value: "",
-      },
-      steet: {
-        elementType: "input",
-        elementConfig: {
-          type: "text",
-          placeholder: "Street",
-        },
-        validation: {
-          required: true,
-        },
-        valid: false,
-        touched: false,
-        value: "",
-      },
-      zipCode: {
-        elementType: "input",
-        elementConfig: {
-          type: "text",
-          placeholder: "ZIP Code",
-        },
-        validation: {
-          required: true,
-          minLength: 5,
-          maxLength: 5,
-        },
-        valid: false,
-        touched: false,
-        value: "",
-      },
-      email: {
-        elementType: "input",
-        elementConfig: {
-          type: "email",
-          placeholder: "Your E-mail",
-        },
-        validation: {
-          required: true,
-        },
-        valid: false,
-        touched: false,
-        value: "",
-      },
-      deliveryMethod: {
-        elementType: "select",
-        elementConfig: {
-          options: [
-            { value: "fastest", displayValue: "Fastest" },
-            { value: "cheapest", displayValue: "Cheapest" },
-          ],
-        },
-        validation: {},
-        valid: true,
-        value: "",
-      },
-    },
     formIsValid: false,
     loading: false,
   };
-
-  // setOrderForm = (elementType, type, placeholder, value) => {
-  //   return {
-  //     elementType: elementType,
-  //     elementConfig: {
-  //       type: type,
-  //       placeholder: placeholder,
-  //     },
-  //     value: value,
-  //   };
-  // };
 
   handleOrderSubmitted = (event) => {
     event.preventDefault();
     this.setState({ loading: true });
     const orderData = {};
-    for (let orderElementIdentifier in this.state.orderForm) {
-      orderData[orderElementIdentifier] = this.state.orderForm[
+    for (let orderElementIdentifier in this.props.orderForm) {
+      orderData[orderElementIdentifier] = this.props.orderForm[
         orderElementIdentifier
       ].value;
     }
@@ -138,7 +59,7 @@ class ContactData extends Component {
   };
 
   handleInputChanged = (event, inputIdentifier) => {
-    const updatedOrderForm = { ...this.state.orderForm };
+    const updatedOrderForm = { ...this.props.orderForm };
     const updatedOrderElement = { ...updatedOrderForm[inputIdentifier] };
     updatedOrderElement.value = event.target.value;
     updatedOrderElement.valid = this.checkValidity(
@@ -156,10 +77,10 @@ class ContactData extends Component {
 
   render() {
     const formElementArray = [];
-    for (let key in this.state.orderForm) {
+    for (let key in this.props.orderForm) {
       formElementArray.push({
         id: key,
-        config: this.state.orderForm[key],
+        config: this.props.orderForm[key],
       });
     }
     let form = (
@@ -196,8 +117,9 @@ class ContactData extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    ings: state.ingredients,
-    price: state.totalPrice,
+    ings: state.orderReducer.ingredients,
+    price: state.orderReducer.totalPricprops,
+    orderForm: state.orderReducer.orderForm,
   };
 };
 
