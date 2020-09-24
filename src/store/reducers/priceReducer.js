@@ -12,14 +12,12 @@ const initialState = {
 };
 
 const priceReducer = (state = initialState, action) => {
-  // eslint-disable-next-line
   switch (action.type) {
     case actionType.ADD_TOTAL_PRICE: {
       const priceAddition = INGREDIENTS_PRICE[action.ingType];
       const oldTotalPrice = state.totalPrice;
       const newTotalPrice = oldTotalPrice + priceAddition;
       return {
-        ...state,
         totalPrice: newTotalPrice,
       };
     }
@@ -28,12 +26,12 @@ const priceReducer = (state = initialState, action) => {
       const oldTotalPrice = state.totalPrice;
       const newTotalPrice = oldTotalPrice - priceDeduction;
       return {
-        ...state,
         totalPrice: newTotalPrice,
       };
     }
+    default:
+      return state;
   }
-  return state;
 };
 
 export default priceReducer;

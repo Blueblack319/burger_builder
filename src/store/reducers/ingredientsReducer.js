@@ -13,26 +13,30 @@ const ingredientReducer = (state = initialState, action) => {
   // eslint-disable-next-line
   switch (action.type) {
     case actionType.ADD_INGREDIENT: {
-      const oldCount = state.ingredients[action.ingType];
-      const newCount = oldCount + 1;
-      const updatedIngredient = { ...state.ingredients };
-      updatedIngredient[action.ingType] = newCount;
+      // const oldCount = state.ingredients[action.ingType];
+      // const newCount = oldCount + 1;
+      // const updatedIngredient = { ...state.ingredients };
+      // updatedIngredient[action.ingType] = newCount;
       return {
-        ...state,
-        ingredients: updatedIngredient,
+        ingredients: {
+          ...state.ingredients,
+          [action.ingType]: state.ingredients[action.ingType] + 1,
+        },
       };
     }
     case actionType.REMOVE_INGREDIENT: {
-      const oldCount = state.ingredients[action.ingType];
-      if (oldCount <= 0) {
-        return state;
-      }
-      const newCount = oldCount - 1;
-      const updatedIngredient = { ...state.ingredients };
-      updatedIngredient[action.ingType] = newCount;
+      // const oldCount = state.ingredients[action.ingType];
+      // if (oldCount <= 0) {
+      //   return state;
+      // }
+      // const newCount = oldCount - 1;
+      // const updatedIngredient = { ...state.ingredients };
+      // updatedIngredient[action.ingType] = newCount;
       return {
-        state,
-        ingredients: updatedIngredient,
+        ingredients: {
+          ...state.ingredients,
+          [action.ingType]: state.ingredients[action.ingType] - 1,
+        },
       };
     }
   }
