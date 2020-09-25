@@ -8,10 +8,10 @@ import Spinner from "../../../components/UI/Spinner/Spinner";
 import Input from "../../../components/UI/Form/Input/Input";
 
 import { connect } from "react-redux";
+import actionTypes from "../../../store/actions/actionTypes";
 
 class ContactData extends Component {
   state = {
-    formIsValid: false,
     loading: false,
   };
 
@@ -42,39 +42,6 @@ class ContactData extends Component {
       .catch((error) => this.setState({ loading: false }));
   };
 
-  checkValidity = (value, rules) => {
-    let isValid = true;
-    // if (rules) {
-    if (rules.required) {
-      isValid = value.trim() !== "" && isValid;
-    }
-    if (rules.minLength) {
-      isValid = value.length >= rules.minLength && isValid;
-    }
-    if (rules.maxLength) {
-      isValid = value.length <= rules.maxLength && isValid;
-    }
-    // }
-    return isValid;
-  };
-
-  handleInputChanged = (event, inputIdentifier) => {
-    const updatedOrderForm = { ...this.props.orderForm };
-    const updatedOrderElement = { ...updatedOrderForm[inputIdentifier] };
-    updatedOrderElement.value = event.target.value;
-    updatedOrderElement.valid = this.checkValidity(
-      updatedOrderElement.value,
-      updatedOrderElement.validation
-    );
-    updatedOrderElement.touched = true;
-    updatedOrderForm[inputIdentifier] = updatedOrderElement;
-    let formIsValid = true;
-    for (let inputIdentifier in updatedOrderForm) {
-      formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
-    }
-    this.setState({ orderForm: updatedOrderForm, formIsValid });
-  };
-
   render() {
     const formElementArray = [];
     for (let key in this.props.orderForm) {
@@ -91,13 +58,13 @@ class ContactData extends Component {
             elementType={formElement.config.elementType}
             elementConfig={formElement.config.elementConfig}
             value={formElement.config.value}
-            changed={(event) => this.handleInputChanged(event, formElement.id)}
+            changed={(event) => this.props.onChangeInput(event, formElement.id)}
             shouldValidate={formElement.config.validation}
             touched={formElement.config.touched}
             invalid={!formElement.config.valid}
           />
         ))}
-        <Button btnType="Success" disabled={!this.state.formIsValid}>
+        <Button btnType="Success" disabled={!this.props.formIsValid}>
           Order
         </Button>
       </form>
@@ -117,10 +84,18 @@ class ContactData extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    ings: state.orderReducer.ingredients,
-    price: state.orderReducer.totalPricprops,
+    ings: state.burgerBuilderReducer.ingredients,
+    price: state.burgerBuilderReducer.totalPrice,
     orderForm: state.orderReducer.orderForm,
+    formIsValid: state.orderReducer.formIsValid,
   };
 };
 
-export default connect(mapStateToProps)(ContactData);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onChangeInput: (event, inputIdentifier) =>
+      dispatch({ type: actionTypes.CHANGE_INPUT, event, inputIdentifier }),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactData);
