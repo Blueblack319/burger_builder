@@ -18,7 +18,7 @@ const ordersReducer = (state = initState, action) => {
         ...state,
         loading: true,
       };
-    case actionTypes.PURCHASE_BURGER_SUCCESSED:
+    case actionTypes.PURCHASE_BURGER_SUCCEEDED:
       const newOrder = {
         ...action.orderData,
         orderId: action.orderId,
@@ -33,6 +33,22 @@ const ordersReducer = (state = initState, action) => {
       return {
         ...state,
         loading: false,
+      };
+    case actionTypes.FETCH_ORDERS_SUCCEEDED:
+      return {
+        ...state,
+        orders: action.orders,
+        loading: false,
+      };
+    case actionTypes.FETCH_ORDERS_FAILED:
+      return {
+        ...state,
+        loading: false,
+      };
+    case actionTypes.FETCH_ORDERS_STARTED:
+      return {
+        ...state,
+        loading: true,
       };
     default:
       return state;

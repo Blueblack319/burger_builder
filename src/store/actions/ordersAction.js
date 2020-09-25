@@ -1,22 +1,28 @@
 import actionTypes from "./actionTypes";
 import axios from "../../axios-orders";
 
-export const purchaseBurgerSuccessed = (orderId, orderData) => {
+export const initPurchase = () => {
   return {
-    type: actionTypes.PURCHASE_BURGER_SUCCESSED,
+    type: actionTypes.INIT_PURCHASE,
+  };
+};
+
+const purchaseBurgerSuccessed = (orderId, orderData) => {
+  return {
+    type: actionTypes.PURCHASE_BURGER_SUCCEEDED,
     orderId,
     orderData,
   };
 };
 
-export const purchaseBurgerFailed = (error) => {
+const purchaseBurgerFailed = (error) => {
   return {
     type: actionTypes.PURCHASE_BURGER_FAILED,
     error,
   };
 };
 
-export const purchaseBurgerStarted = () => {
+const purchaseBurgerStarted = () => {
   return {
     type: actionTypes.PURCHASE_BURGER_STARTED,
   };
@@ -37,8 +43,45 @@ export const purchaseBurger = (order) => {
   };
 };
 
-export const initPurchase = () => {
+const fetchOrdersSucceeded = (orders) => {
   return {
-    type: actionTypes.INIT_PURCHASE,
+    type: actionTypes.FETCH_ORDERS_SUCCEEDED,
+    orders,
+  };
+};
+
+const fetchOrdersFailed = (error) => {
+  return {
+    type: actionTypes.FETCH_ORDERS_FAILED,
+    error,
+  };
+};
+
+const fetchOrdersStarted = () => {
+  return {
+    type: actionTypes.FETCH_ORDERS_STARTED,
+  };
+};
+
+export const fetchOrders = () => {
+  return (dispatch) => {
+    dispatch(fetchOrdersStarted());
+    axios({
+      method: "get",
+      url: "orders.js",
+    })
+      .then((res) => {
+        const orders = [];
+        for (let key in res.data) {
+          orders.push({
+            ...res.data[key],
+            id: key,
+          });
+        }
+        dispatch(fetchOrdersSucceeded(orders));
+      })
+      .catch((error) => {
+        dispatch(fetchOrdersFailed(error));
+      });
   };
 };
