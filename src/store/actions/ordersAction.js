@@ -7,10 +7,10 @@ export const initPurchase = () => {
   };
 };
 
-const purchaseBurgerSuccessed = (orderId, orderData) => {
+const purchaseBurgerSuccessed = (id, orderData) => {
   return {
     type: actionTypes.PURCHASE_BURGER_SUCCEEDED,
-    orderId,
+    id,
     orderData,
   };
 };
@@ -68,7 +68,7 @@ export const fetchOrders = () => {
     dispatch(fetchOrdersStarted());
     axios({
       method: "get",
-      url: "orders.js",
+      url: "orders.json",
     })
       .then((res) => {
         const orders = [];

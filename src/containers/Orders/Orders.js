@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 
 import Order from "../../components/Order/Order";
+import Spinner from "../../components/UI/Spinner/Spinner";
+import axios from "../../axios-orders";
+import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 
 import { connect } from "react-redux";
 import * as actionCreators from "../../store/actions/index";
-import Spinner from "../../components/UI/Spinner/Spinner";
 
 class Orders extends Component {
   state = {
@@ -46,4 +48,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Orders);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withErrorHandler(Orders, axios));

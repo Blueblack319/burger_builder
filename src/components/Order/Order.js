@@ -15,6 +15,7 @@ const Order = (props) => {
   const ingredientOutput = ingredients.map((ingredient) => {
     return (
       <span
+        key={ingredient.name}
         style={{
           textTransform: "capitalize",
           display: "inline-block",
