@@ -1,7 +1,7 @@
 import actionTypes from "./actionTypes";
 import axios from "../../axios-orders";
 
-const purchaseBurgerSuccessed = (orderId, orderData) => {
+export const purchaseBurgerSuccessed = (orderId, orderData) => {
   return {
     type: actionTypes.PURCHASE_BURGER_SUCCESSED,
     orderId,
@@ -9,7 +9,7 @@ const purchaseBurgerSuccessed = (orderId, orderData) => {
   };
 };
 
-const purchaseBurgerFailed = (error) => {
+export const purchaseBurgerFailed = (error) => {
   return {
     type: actionTypes.PURCHASE_BURGER_FAILED,
     error,
