@@ -15,7 +15,6 @@ class Orders extends Component {
       url: "orders.json",
     })
       .then((res) => {
-        console.log(res.data);
         const orders = [];
         for (let key in res.data) {
           orders.push({

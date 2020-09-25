@@ -78,27 +78,14 @@ class ContactData extends Component {
         },
         validation: {},
         valid: true,
-        value: "",
+        value: "fastest",
       },
     },
     formIsValid: false,
-    loading: false,
   };
-
-  // setOrderForm = (elementType, type, placeholder, value) => {
-  //   return {
-  //     elementType: elementType,
-  //     elementConfig: {
-  //       type: type,
-  //       placeholder: placeholder,
-  //     },
-  //     value: value,
-  //   };
-  // };
 
   handleOrderSubmitted = (event) => {
     event.preventDefault();
-    this.setState({ loading: true });
     const orderData = {};
     for (let orderElementIdentifier in this.state.orderForm) {
       orderData[orderElementIdentifier] = this.state.orderForm[
@@ -173,7 +160,7 @@ class ContactData extends Component {
         </Button>
       </form>
     );
-    if (this.state.loading) {
+    if (this.props.loading) {
       form = <Spinner />;
     }
 
@@ -188,15 +175,16 @@ class ContactData extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    ings: state.ingredients,
-    price: state.totalPrice,
+    ings: state.burgerBuilderReducer.ingredients,
+    price: state.burgerBuilderReducer.totalPrice,
+    loading: state.ordersReducer.loading,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onBurgerPurchased: (orderData) =>
-      dispatch(actionCreators.purchaseBurgerStarted(orderData)),
+      dispatch(actionCreators.purchaseBurger(orderData)),
   };
 };
 
