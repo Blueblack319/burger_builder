@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import Button from "../../components/UI/Button/Button";
 import Input from "../../components/UI/Form/Input/Input";
+import { auth } from "../../store/actions/authAction";
 
 import classes from "./Auth.module.css";
+
+import { connect } from "react-redux";
 
 class Auth extends Component {
   state = {
@@ -44,10 +47,10 @@ class Auth extends Component {
       isValid = value.trim() !== "" && isValid;
     }
     if (rules.minlength) {
-      isValid = value >= rules.minlength && isValid;
+      isValid = value.length >= rules.minlength && isValid;
     }
     if (rules.maxlength) {
-      isValid = value <= rules.maxlength && isValid;
+      isValid = value.length <= rules.maxlength && isValid;
     }
     return isValid;
   };
@@ -69,6 +72,13 @@ class Auth extends Component {
     this.setState({ controls: updatedControlForm, formIsValid });
   };
 
+  handleFormSubmitted = (event) => {
+    event.preventDefault();
+    this.props.onAuth(
+      this.state.controls.email.value,
+      this.state.controls.password.value
+    );
+  };
   render() {
     const formElementArray = [];
     for (let control in this.state.controls) {
@@ -93,11 +103,19 @@ class Auth extends Component {
     });
     return (
       <div className={classes.Auth}>
-        <form>{formElements}</form>
-        <Button btnType="Success">Submit</Button>
+        <form onSubmit={this.handleFormSubmitted}>
+          {formElements}
+          <Button btnType="Success">Submit</Button>
+        </form>
       </div>
     );
   }
 }
 
-export default Auth;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAuth: (email, password) => dispatch(auth(email, password)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Auth);
