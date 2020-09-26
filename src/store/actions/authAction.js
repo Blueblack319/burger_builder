@@ -42,12 +42,10 @@ export const auth = (email, password, isSignUp) => {
       data: authData,
     })
       .then((res) => {
-        console.log(res);
         dispatch(authSuccess(res.data.idToken, res.data.localId));
       })
       .catch((error) => {
-        console.log(error);
-        dispatch(authFail(error));
+        dispatch(authFail(error.response.data.error));
       });
   };
 };

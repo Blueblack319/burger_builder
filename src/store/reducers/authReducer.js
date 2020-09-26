@@ -4,19 +4,19 @@ import { updatedObject } from "./utility";
 const initState = {
   idToken: null,
   userId: null,
-  error: false,
+  error: null,
   loading: false,
 };
 
 const authStart = (state, action) => {
-  return updatedObject(state, { error: false, loading: true });
+  return updatedObject(state, { error: null, loading: true });
 };
 
 const authSuccess = (state, action) => {
   return updatedObject(state, {
     idToken: action.idToken,
     userId: action.localId,
-    error: false,
+    error: null,
     loading: false,
   });
 };
