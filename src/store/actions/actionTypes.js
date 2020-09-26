@@ -15,6 +15,7 @@ const actionTypes = {
   AUTH_SUCCESS: "AUTH_SUCCESS",
   AUTH_FAIL: "AUTH_FAIL",
   AUTH_START: "AUTH_START",
+  AUTH_LOGOUT: "AUTH_LOGOUT",
 };
 
 export default actionTypes;
