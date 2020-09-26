@@ -3,10 +3,11 @@ import axios from "../../axios-orders";
 
 const API_KEY = "AIzaSyBpOCU_QrvEE_-dIPMC97gFJalvsEFZGGc";
 
-const authSuccess = (authData) => {
+const authSuccess = (idToken, localId) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
-    authData,
+    idToken,
+    localId,
   };
 };
 
@@ -37,12 +38,12 @@ export const auth = (email, password, isSignUp) => {
     }
     axios({
       method: "post",
-      url: url,
+      url,
       data: authData,
     })
       .then((res) => {
         console.log(res);
-        dispatch(authSuccess(res.data));
+        dispatch(authSuccess(res.data.idToken, res.data.localId));
       })
       .catch((error) => {
         console.log(error);
