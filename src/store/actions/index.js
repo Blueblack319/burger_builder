@@ -5,3 +5,5 @@ export {
 } from "./burgerBuilderAction";
 
 export { purchaseBurger, initPurchase, fetchOrders } from "./ordersAction";
+
+export { authLogout } from "./authAction";
