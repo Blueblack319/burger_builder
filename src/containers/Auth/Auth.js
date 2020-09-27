@@ -8,6 +8,7 @@ import classes from "./Auth.module.css";
 import { connect } from "react-redux";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import { Redirect } from "react-router-dom";
+import { updatedObject } from "../../shared/utility";
 
 class Auth extends Component {
   state = {
@@ -64,21 +65,23 @@ class Auth extends Component {
     return isValid;
   };
 
-  handleInputChanged = (event, identifier) => {
-    const updatedControlForm = { ...this.state.controls };
-    const updatedControlElement = updatedControlForm[identifier];
-    updatedControlElement.value = event.target.value;
-    updatedControlElement.valid = this.checkValidity(
-      updatedControlElement.value,
-      updatedControlElement.validation
-    );
-    updatedControlElement.touched = true;
-    updatedControlForm[identifier] = updatedControlElement;
+  handleInputChanged = (event, controlName) => {
+    const updatedControl = updatedObject(this.state.controls[controlName], {
+      value: event.target.value,
+      valid: this.checkValidity(
+        event.target.value,
+        this.state.controls[controlName].validation
+      ),
+      touched: true,
+    });
+    const updatedControls = updatedObject(this.state.controls, {
+      [controlName]: updatedControl,
+    });
     let formIsValid = true;
-    for (let identifier in updatedControlForm) {
-      formIsValid = updatedControlForm[identifier].valid && formIsValid;
+    for (let controlName in updatedControls) {
+      formIsValid = updatedControls[controlName].valid && formIsValid;
     }
-    this.setState({ controls: updatedControlForm, formIsValid });
+    this.setState({ controls: updatedControls, formIsValid });
   };
 
   handleFormSubmitted = (event) => {
