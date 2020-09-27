@@ -17,6 +17,7 @@ const actionTypes = {
   AUTH_START: "AUTH_START",
   AUTH_LOGOUT: "AUTH_LOGOUT",
   SET_AUTH_REDIRECT_PATH: "SET_AUTH_REDIRECT_PATH",
+  CHECK_AUTH_STATE: "CHECK_AUTH_STATE",
 };
 
 export default actionTypes;
