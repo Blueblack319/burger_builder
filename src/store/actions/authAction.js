@@ -4,7 +4,6 @@ import axios from "../../axios-orders";
 const API_KEY = "AIzaSyBpOCU_QrvEE_-dIPMC97gFJalvsEFZGGc";
 
 const authSuccess = (idToken, localId) => {
-  console.log("Here");
   return {
     type: actionTypes.AUTH_SUCCESS,
     idToken,
@@ -70,8 +69,6 @@ export const auth = (email, password, isSignUp) => {
         dispatch(checkAuthTimeout(res.data.expiresIn));
       })
       .catch((error) => {
-        // console.log(error.response);
-        // console.log(error);
         if (error.response && error.response.data) {
           dispatch(authFail(error.response.data.error));
         } else {
@@ -93,12 +90,10 @@ export const checkAuthState = () => {
     const idToken = localStorage.getItem("idToken");
     const userId = localStorage.getItem("userId");
     const expirationDate = new Date(localStorage.getItem("expirationDate"));
-    console.log(idToken, userId, expirationDate);
     if (!idToken) {
       dispatch(authLogout());
     } else {
       if (expirationDate > new Date()) {
-        console.log("Here");
         dispatch(authSuccess(idToken, userId));
         dispatch(
           checkAuthTimeout(
