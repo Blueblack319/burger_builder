@@ -12,7 +12,10 @@ import burgerBuilderReducer from "./store/reducers/burgerBuilderReducer";
 import ordersReducer from "./store/reducers/ordersReducer";
 import thunk from "redux-thunk";
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers =
+  process.env.NODE_ENV === "development"
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    : null || compose;
 
 const rootReducer = combineReducers({
   ordersReducer,
