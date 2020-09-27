@@ -34,6 +34,7 @@ class BurgerBuilder extends Component {
     if (this.props.isAuth) {
       this.setState({ ordered: true });
     } else {
+      this.props.onSetAuthRedirectPath("/checkout");
       this.props.history.push("/auth");
     }
   };
@@ -107,6 +108,7 @@ const mapStateToProps = (state) => {
     price: state.burgerBuilderReducer.totalPrice,
     error: state.burgerBuilderReducer.error,
     isAuth: state.authReducer.idToken != null,
+    buildingBurger: state.burgerBuilderReducer.buildingBurger,
   };
 };
 
@@ -118,6 +120,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(actionCreators.removeIngredient(ingName)),
     onInitIngredients: () => dispatch(actionCreators.initIngredients()),
     onInitPurchase: () => dispatch(actionCreators.initPurchase()),
+    onSetAuthRedirectPath: (path) =>
+      dispatch(actionCreators.setAuthRedirectPath(path)),
   };
 };
 

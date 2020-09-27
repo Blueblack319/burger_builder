@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Button from "../../components/UI/Button/Button";
 import Input from "../../components/UI/Form/Input/Input";
-import { auth } from "../../store/actions/authAction";
+import { auth, setAuthRedirectPath } from "../../store/actions/authAction";
 
 import classes from "./Auth.module.css";
 
@@ -43,6 +43,12 @@ class Auth extends Component {
     formIsValid: false,
     isSingUp: true,
   };
+
+  componentDidMount() {
+    if (!this.props.buildingBurger) {
+      this.props.onSetAuthRedirectPath("/");
+    }
+  }
 
   checkValidity = (value, rules) => {
     let isValid = true;
@@ -125,7 +131,7 @@ class Auth extends Component {
     }
     let authRedirect = null;
     if (this.props.isAuth) {
-      authRedirect = <Redirect to="/" />;
+      authRedirect = <Redirect to={this.props.authRedirectPath} />;
     }
 
     return (
@@ -149,6 +155,8 @@ const mapStateToProps = (state) => {
     loading: state.authReducer.loading,
     error: state.authReducer.error,
     isAuth: state.authReducer.idToken != null,
+    buildingBurger: state.burgerBuilderReducer.buildingBurger,
+    authRedirectPath: state.authReducer.authRedirectPath,
   };
 };
 
@@ -156,6 +164,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onAuth: (email, password, isSignUp) =>
       dispatch(auth(email, password, isSignUp)),
+    onSetAuthRedirectPath: (path) => dispatch(setAuthRedirectPath(path)),
   };
 };
 
