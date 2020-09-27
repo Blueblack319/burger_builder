@@ -6,16 +6,14 @@ import Button from "../../UI/Button/Button";
 import { Link } from "react-router-dom";
 
 class OrderSummary extends Component {
-  // For Check
-  componentDidUpdate = () => {
-    console.log("[OrderSummary.js] componentDidUpdate");
-  };
   render() {
     const ingredientSummary = Object.keys(this.props.ingredients).map(
       (igKey) => {
         return (
           <li key={igKey}>
-            <span>{igKey}</span>: {this.props.ingredients[igKey]}
+            <span>
+              {igKey}: {this.props.ingredients[igKey]}
+            </span>
           </li>
         );
       }

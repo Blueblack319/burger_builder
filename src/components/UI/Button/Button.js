@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import classes from "./Button.module.css";
 
+<<<<<<< HEAD
 // const Button = (props) => (
 //   <button
 //     className={[classes.Button, classes[props.btnType]].join(" ")}
@@ -30,5 +31,16 @@ class Button extends Component {
     );
   }
 }
+=======
+const Button = (props) => (
+  <button
+    disabled={props.disabled}
+    className={[classes.Button, classes[props.btnType]].join(" ")}
+    onClick={props.clicked}
+  >
+    {props.children}
+  </button>
+);
+>>>>>>> course
 
 export default Button;
