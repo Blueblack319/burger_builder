@@ -10,7 +10,7 @@ import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
 
 import { connect } from "react-redux";
 import * as actionCreators from "../../../store/actions/index";
-import { updatedObject } from "../../../shared/utility";
+import { updatedObject, checkValidity } from "../../../shared/utility";
 
 class ContactData extends Component {
   state = {
@@ -102,28 +102,12 @@ class ContactData extends Component {
     this.props.onBurgerPurchased(order, this.props.idToken);
   };
 
-  checkValidity = (value, rules) => {
-    let isValid = true;
-    // if (rules) {
-    if (rules.required) {
-      isValid = value.trim() !== "" && isValid;
-    }
-    if (rules.minLength) {
-      isValid = value.length >= rules.minLength && isValid;
-    }
-    if (rules.maxLength) {
-      isValid = value.length <= rules.maxLength && isValid;
-    }
-    // }
-    return isValid;
-  };
-
   handleInputChanged = (event, inputIdentifier) => {
     const updatedOrderElement = updatedObject(
       this.state.orderForm[inputIdentifier],
       {
         value: event.target.value,
-        valid: this.checkValidity(
+        valid: checkValidity(
           event.target.value,
           this.state.orderForm[inputIdentifier].validation
         ),

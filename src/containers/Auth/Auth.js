@@ -8,7 +8,7 @@ import classes from "./Auth.module.css";
 import { connect } from "react-redux";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import { Redirect } from "react-router-dom";
-import { updatedObject } from "../../shared/utility";
+import { updatedObject, checkValidity } from "../../shared/utility";
 
 class Auth extends Component {
   state = {
@@ -51,24 +51,10 @@ class Auth extends Component {
     }
   }
 
-  checkValidity = (value, rules) => {
-    let isValid = true;
-    if (rules.required) {
-      isValid = value.trim() !== "" && isValid;
-    }
-    if (rules.minlength) {
-      isValid = value.length >= rules.minlength && isValid;
-    }
-    if (rules.maxlength) {
-      isValid = value.length <= rules.maxlength && isValid;
-    }
-    return isValid;
-  };
-
   handleInputChanged = (event, controlName) => {
     const updatedControl = updatedObject(this.state.controls[controlName], {
       value: event.target.value,
-      valid: this.checkValidity(
+      valid: checkValidity(
         event.target.value,
         this.state.controls[controlName].validation
       ),
