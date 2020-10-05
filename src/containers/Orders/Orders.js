@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from "react";
+import React, { useEffect } from "react";
 
 import Order from "../../components/Order/Order";
 import Spinner from "../../components/UI/Spinner/Spinner";
