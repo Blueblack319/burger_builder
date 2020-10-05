@@ -9,10 +9,11 @@ import { connect } from "react-redux";
 import * as actionCreators from "../../store/actions/index";
 
 const Orders = (props) => {
+  const { idToken, userId } = props;
   useEffect(() => {
-    props.onFetchOrders(props.idToken, props.userId);
+    props.onFetchOrders(idToken, userId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [idToken, userId]);
 
   let orders = <Spinner />;
   if (!props.loading) {

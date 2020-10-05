@@ -28,7 +28,7 @@ export default (httpClient) => {
       httpClient.interceptors.request.eject(reqInterceptors);
       httpClient.interceptors.response.eject(resInterceptors);
     };
-  }, [reqInterceptors, resInterceptors]);
+  }, [reqInterceptors, resInterceptors, httpClient]);
 
   const handleErrorConfirmed = () => setError(null);
   return [error, handleErrorConfirmed];

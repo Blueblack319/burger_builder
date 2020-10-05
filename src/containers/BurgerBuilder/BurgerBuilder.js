@@ -15,12 +15,13 @@ import { connect } from "react-redux";
 import * as actionCreators from "../../store/actions/index";
 
 export const BurgerBuilder = (props) => {
+  const { onInitIngredients } = props;
   const [isPurchased, setIsPurchased] = useState(false);
 
   useEffect(() => {
-    props.onInitIngredients();
+    onInitIngredients();
     // eslint-disable-next-line
-  }, []);
+  }, [onInitIngredients]);
 
   const handleUpdatePurchaseState = (ingredients) => {
     const sum = Object.keys(ingredients)

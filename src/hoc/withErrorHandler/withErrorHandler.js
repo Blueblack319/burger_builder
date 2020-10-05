@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Modal from "../../components/UI/Modal/Modal";
 import useHandleHttpError from "../../hooks/handle-http-error";
 import Aux from "../Aux/Aux";
