@@ -1,50 +1,51 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "../../components/UI/Modal/Modal";
 
 import Aux from "../Aux/Aux";
 
 const withErrorHandler = (WrappedComponent, axios) => {
-  return class extends Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        error: false,
+  return (props) => {
+    const [error, setError] = useState(null);
+
+    const reqInterceptors = axios.interceptors.request.use(
+      (req) => {
+        setError(null);
+        return req;
+      },
+      (err) => {
+        setError(err.message);
+        return Promise.reject(err);
+      }
+    );
+    const resInterceptors = axios.interceptors.response.use(
+      (res) => {
+        setError(null);
+        return res;
+      },
+      (err) => {
+        setError(err.message);
+        return Promise.reject(err);
+      }
+    );
+
+    useEffect(() => {
+      return () => {
+        axios.interceptors.request.eject(reqInterceptors);
+        axios.interceptors.response.eject(resInterceptors);
       };
-      this.reqInterceptors = axios.interceptors.request.use(
-        (req) => {
-          this.setState({ error: false });
-          return req;
-        },
-        (error) => this.setState({ error })
-      );
-      this.resInterceptors = axios.interceptors.response.use(
-        (res) => res,
-        (error) => this.setState({ error })
-      );
-    }
+    }, [reqInterceptors, resInterceptors]);
 
-    componentWillUnmount() {
-      axios.interceptors.request.eject(this.reqInterceptors);
-      axios.interceptors.response.eject(this.resInterceptors);
-    }
-
-    handleConfirmError = () => {
-      this.setState({ error: false });
+    const handleConfirmError = () => {
+      setError(null);
     };
-
-    render() {
-      return (
-        <Aux>
-          <Modal
-            ordered={this.state.error}
-            cancleOrder={this.handleConfirmError}
-          >
-            {this.state.error.message}
-          </Modal>
-          <WrappedComponent {...this.props} />
-        </Aux>
-      );
-    }
+    return (
+      <Aux>
+        <Modal ordered={error} cancleOrder={handleConfirmError}>
+          {error}
+        </Modal>
+        <WrappedComponent {...props} />
+      </Aux>
+    );
   };
 };
 

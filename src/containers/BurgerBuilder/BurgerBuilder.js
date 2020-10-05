@@ -9,15 +9,12 @@ import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 
+import classes from "./BurgerBuilder.module.css";
+
 import { connect } from "react-redux";
 import * as actionCreators from "../../store/actions/index";
 
-<<<<<<< HEAD
-
-class BurgerBuilder extends Component {
-=======
 export class BurgerBuilder extends Component {
->>>>>>> 670d7cb61f6ad5b5bba3fa441f9ce54b7207e46c
   state = {
     ordered: false,
   };
