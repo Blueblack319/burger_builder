@@ -6,38 +6,41 @@ import Backdrop from "../Backdrop/Backdrop";
 
 import classes from "./Modal.module.css";
 
-class Modal extends Component {
-  shouldComponentUpdate = (nextProps, nextState) => {
-    return (
-      nextProps.ordered !== this.props.ordered ||
-      nextProps.children !== this.props.children
-    );
-  };
+const Modal = (props) => {
+  // shouldComponentUpdate = (nextProps, nextState) => {
+  //   return (
+  //     nextProps.ordered !== this.props.ordered ||
+  //     nextProps.children !== this.props.children
+  //   );
+  // };
 
-  render() {
-    return (
-      <Aux>
-        <Backdrop show={this.props.ordered} clicked={this.props.cancleOrder} />
-        <div
-          className={classes.Modal}
-          style={{
-            transform: this.props.ordered
-              ? "translateY(0)"
-              : "translateY(-100vh)",
-            opacity: this.props.ordered ? "1" : "0",
-            zIndex: this.props.ordered ? "500" : "-1",
-          }}
-        >
-          {this.props.children}
-        </div>
-      </Aux>
-    );
-  }
-}
+  return (
+    <Aux>
+      <Backdrop show={props.ordered} clicked={props.cancleOrder} />
+      <div
+        className={classes.Modal}
+        style={{
+          transform: props.ordered ? "translateY(0)" : "translateY(-100vh)",
+          opacity: props.ordered ? "1" : "0",
+          zIndex: props.ordered ? "500" : "-1",
+        }}
+      >
+        {props.children}
+      </div>
+    </Aux>
+  );
+};
 
 Modal.propTypes = {
   ordered: PropTypes.bool,
   cancleOrder: PropTypes.func,
 };
 
-export default Modal;
+const areEqual = (prevProps, nextProps) => {
+  return (
+    prevProps.ordered === nextProps.ordered &&
+    prevProps.children === nextProps.children
+  );
+};
+
+export default React.memo(Modal, areEqual);
