@@ -12,8 +12,12 @@ import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 import { connect } from "react-redux";
 import * as actionCreators from "../../store/actions/index";
 
+<<<<<<< HEAD
 
 class BurgerBuilder extends Component {
+=======
+export class BurgerBuilder extends Component {
+>>>>>>> 670d7cb61f6ad5b5bba3fa441f9ce54b7207e46c
   state = {
     ordered: false,
   };
@@ -84,7 +88,7 @@ class BurgerBuilder extends Component {
           cancleOrder={this.handleCancleOrder}
           continueOrder={this.handleContinueOrder}
           ingredients={this.props.ings}
-          price={parseFloat(this.props.price.toFixed(2))}
+          price={parseFloat(this.props.price)}
         />
       );
     }
